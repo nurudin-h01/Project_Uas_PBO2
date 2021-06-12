@@ -44,9 +44,9 @@ class GUI2(Data, Perpus.MyFrame2):
         self.query = 'SELECT * FROM Anggota'
         self.query1 = 'SELECT * FROM Buku'
         self.query2 = 'SELECT * FROM Peminjaman'
-        hasil = self.execute.Jalankan(self.query, returnData=True)
-        hasil1 = self.execute.Jalankan(self.query1, returnData=True)
-        hasil2 = self.execute.Jalankan(self.query2, returnData=True)
+        hasil = self.execute.Run(self.query, returnData=True)
+        hasil1 = self.execute.Run(self.query1, returnData=True)
+        hasil2 = self.execute.Run(self.query2, returnData=True)
         
         if len(hasil)>5:
             self.m_grid3121.AppendRows(len(hasil)-5)
@@ -132,7 +132,7 @@ class Modal1(Data,Perpus.InAnggota):
         if len(no)>0 and len(nama)>0 and len(alamat)>0 and len(nohp)>0:
             self.query = "INSERT INTO Anggota (No_Anggota, Nama_Anggota, Alamat, No_Handphone) VALUES (\'%s\', \'%s\', \'%s\', \'%s\')"
             self.query = self.query % (no, nama, alamat, nohp)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()           
@@ -152,7 +152,7 @@ class Modal2(Data,Perpus.InBuku):
         if "" not in(no,judul,jenis,pengarang):
             self.query = "INSERT INTO Buku (No_Buku, Judul, Jenis_Buku, Pengarang) VALUES (\'%s\', \'%s\', \'%s\', \'%s\')"
             self.query = self.query % (no, judul, jenis, pengarang)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()
@@ -174,7 +174,7 @@ class Modal3(Data, Perpus.InPeminjaman):
         if "" not in(noanggota,nama,nobuku,judul,pinjam,kembali):
             self.query = "INSERT INTO Peminjaman (Id_Peminjaman, No_Anggota, No_Buku, Judul, Tanggal_Pinjam, Tanggal_Kembali) VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"
             self.query = self.query % (noanggota,nama,nobuku,judul,pinjam,kembali)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()
@@ -188,14 +188,14 @@ class edit_anggota(Data,Perpus.InEditAnggota):
         noanggota = self.noanggota.GetValue()
         self.query = "SELECT * FROM Anggota WHERE No_Anggota = (\'%s\')"
         self.query = self.query % (noanggota)
-        hasil = self.execute.Jalankan(self.query, returnData=True)
+        hasil = self.execute.Run(self.query, returnData=True)
         if len(hasil)>0:
             nama = self.namaanggota.GetValue()
             alamat = self.alamat.GetValue()
             no = self.nohp.GetValue()
             self.query = "Update Anggota set Nama_Anggota = (\'%s\'), Alamat = (\'%s\'), No_Handphone = (\'%s\') WHERE No_Anggota = (\'%s\')"
             self.query = self.query % (nama,alamat,no,noanggota)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()
@@ -214,14 +214,14 @@ class edit_buku(Data, Perpus.InEditBuku):
         nobuku = self.nobuku.GetValue()
         self.query = "SELECT * FROM Buku WHERE No_Buku = (\'%s\')"
         self.query = self.query % (nobuku)
-        hasil = self.execute.Jalankan(self.query, returnData=True)
+        hasil = self.execute.Run(self.query, returnData=True)
         if len(hasil)>0:
             judul = self.judul.GetValue()
             jenis = self.jenisbuku.GetValue()
             pengarang = self.pengarang.GetValue()
             self.query = "Update Buku set Judul = (\'%s\'), Jenis_Buku = (\'%s\'), Pengarang = (\'%s\') WHERE No_Buku = (\'%s\')"
             self.query = self.query % (judul,jenis,pengarang,nobuku)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()
@@ -238,7 +238,7 @@ class edit_peminjaman(Data, Perpus.InEditPeminjaman):
         no = self.noanggota.GetValue()
         self.query = "SELECT * FROM Peminjaman WHERE Id_Peminjaman = (\'%s\')"
         self.query = self.query % (no)
-        hasil = self.execute.Jalankan(self.query, returnData=True)
+        hasil = self.execute.Run(self.query, returnData=True)
         if len(hasil)>0:
             nama = self.namaanggota.GetValue()
             nobuku = self.nobuku.GetValue()
@@ -247,7 +247,7 @@ class edit_peminjaman(Data, Perpus.InEditPeminjaman):
             kembali = self.pinjam.GetValue()
             self.query = "Update Peminjaman set No_Anggota = (\'%s\'), No_Buku = (\'%s\'), Judul = (\'%s\'), Tanggal_Pinjam = (\'%s\'), Tanggal_Kembali = (\'%s\') WHERE Id_Peminjaman = (\'%s\')"
             self.query = self.query % (nama, nobuku, judul, pinjam, kembali, no)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()
@@ -266,11 +266,11 @@ class delete_Anggota(Data, Perpus.InDeleteAnggota):
         no = self.noanggota.GetValue()
         self.query = "SELECT * FROM Anggota WHERE No_Anggota = (\'%s\')"
         self.query = self.query % (no)
-        hasil = self.execute.Jalankan(self.query, returnData=True)
+        hasil = self.execute.Run(self.query, returnData=True)
         if len(hasil)>0:
             self.query = "DELETE FROM Anggota WHERE No_Anggota = (\'%s\')"
             self.query = self.query % (no)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()
@@ -286,11 +286,11 @@ class delete_buku(Data, Perpus.InDeleteBuku):
         no = self.nobuku.GetValue()
         self.query = "SELECT * FROM Buku WHERE No_Buku = (\'%s\')"
         self.query = self.query % (no)
-        hasil = self.execute.Jalankan(self.query, returnData=True)
+        hasil = self.execute.Run(self.query, returnData=True)
         if len(hasil)>0:
             self.query = "DELETE FROM Buku WHERE No_Buku = (\'%s\')"
             self.query = self.query % (no)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()
@@ -307,11 +307,11 @@ class delete_peminjaman(Data, Perpus.InDeletePeminjaman):
         no = self.noanggota.GetValue()
         self.query = "SELECT * FROM Peminjaman WHERE Id_Peminjaman = (\'%s\')"
         self.query = self.query % (no)
-        hasil = self.execute.Jalankan(self.query, returnData=True)
+        hasil = self.execute.Run(self.query, returnData=True)
         if len(hasil)>0:
             self.query = "DELETE FROM Peminjaman WHERE Id_Peminjaman = (\'%s\')"
             self.query = self.query % (no)
-            self.execute.Jalankan(self.query)
+            self.execute.Run(self.query)
             self.Destroy()
             frame= GUI2(parent=None)
             frame.Show()

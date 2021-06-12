@@ -5,7 +5,7 @@ class Data:
         self.conn = sqlite3.connect('perpus.db')
         self.cursor = self.conn.cursor()
 
-    def Jalankan(self, query, returnData = False):
+    def Run(self, query, returnData = False):
         self.cursor.execute(query)
         result = self.cursor.fetchall()
         self.conn.commit()
