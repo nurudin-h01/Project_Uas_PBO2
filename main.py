@@ -18,7 +18,9 @@ class GUI1(Perpus.MyFrame1):
             frame = GUI2(parent=None)
             frame.Show()
             self.Destroy()
-
+        else :
+            wx.MessageBox('Login Gagal', 'Peringatan',wx.OK | wx.ICON_ERROR)
+            print('Login Berhasil')
         
 class GUI2(Data, Perpus.MyFrame2):
     def __init__(self, parent):
